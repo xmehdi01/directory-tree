@@ -1,0 +1,10 @@
+📄—.gitignore
+📄—app.ts
+📂—Folder
+    📂—deepFolder
+        📄—1.js
+        📄—2.js
+📄—package-lock.json
+📄—package.json
+📄—README.md
+📄—tsconfig.json

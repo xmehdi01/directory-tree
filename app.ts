@@ -1,5 +1,9 @@
-const foldersToIgnore = ["node_modules"];
+const foldersToIgnore = ["node_modules", ".git"];
 import * as fs from 'fs';
+import { promises as fsPromises } from 'fs';
+import { join } from 'path';
+const argv = require('minimist')(process.argv.slice(2));
+const save = argv.save;
 
 /**
 * @param {string} path - path of directory
@@ -78,5 +82,15 @@ async function buildDirectoryTree(fileName: string, fileType: string, fileDeep: 
     let [fileName, fileType] = file;
     DirectoryHierarchy = await buildDirectoryTree(fileName, fileType, fileDeep, path, DirectoryHierarchy);
   }
-  console.log(DirectoryHierarchy);
+  let fileName = "directoryTree";
+  if (save === 'txt') {
+    try {
+      await fsPromises.writeFile(join(__dirname, fileName + ".txt"), DirectoryHierarchy);
+    } catch (err) {
+      console.error(err);
+    }
+  } else if (save === 'img') {
+    console.log(save);
+  }
+
 })()
